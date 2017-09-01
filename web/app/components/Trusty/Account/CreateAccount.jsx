@@ -366,18 +366,6 @@ class CreateAccount extends React.Component {
         // let firstAccount = my_accounts.length === 0;
         return (
             <div className="grid-block vertical page-layout Account_create">
-                <div className="grid-block shrink small-12 medium-10 medium-offset-2">
-                    <div className="grid-content" style={{paddingTop: 20}}>
-                        <Translate content="wallet.wallet_new" component="h2" />
-                        {/* <h4 style={{paddingTop: 20}}>
-                            {step === 1 ?
-                                <span>{firstAccount ? <Translate content="wallet.create_w_a" />  : <Translate content="wallet.create_a" />}</span> :
-                            step === 2 ? <Translate content="wallet.create_success" /> :
-                            <Translate content="wallet.all_set" />
-                            }
-                        </h4> */}
-                    </div>
-                </div>
                 <div className="grid-block wrap">
                     <div className="grid-content small-12 medium-4 medium-offset-2">
                         {step !== 1 ? <p style={{fontWeight: "bold"}}>
