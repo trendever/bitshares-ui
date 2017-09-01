@@ -12,14 +12,14 @@ import { connect, supplyFluxContext } from "alt-react";
 import {IntlProvider} from "react-intl";
 import SyncError from "./components/SyncError";
 import LoadingIndicator from "./components/LoadingIndicator";
-import Header from "components/Layout/Header";
+import Header from "components/Trusty/Layout/Header";
 import MobileMenu from "components/Layout/MobileMenu";
 import Chat from "./components/Chat/ChatWrapper";
 import ReactTooltip from "react-tooltip";
 import NotificationSystem from "react-notification-system";
 import TransactionConfirm from "./components/Blockchain/TransactionConfirm";
 import WalletUnlockModal from "./components/Wallet/WalletUnlockModal";
-import BrowserSupportModal from "./components/Modal/BrowserSupportModal";
+import CreateAccount from "./components/Trusty/Account/CreateAccount";
 import Footer from "./components/Layout/Footer";
 
 class Trusty extends React.Component {
@@ -76,10 +76,6 @@ class Trusty extends React.Component {
             });
         } catch(e) {
             console.error("e:", e);
-        }
-        const user_agent = navigator.userAgent.toLowerCase();
-        if (!(window.electron || user_agent.indexOf("firefox") > -1 || user_agent.indexOf("chrome") > -1 || user_agent.indexOf("edge") > -1)) {
-            this.refs.browser_modal.show();
         }
 
         this.props.router.listen(this._rebuildTooltips);
@@ -142,8 +138,12 @@ class Trusty extends React.Component {
     render() {
         let {disableChat, isMobile, showChat, dockedChat, theme} = this.state;
         let content = null;
+        let pathname = this.props.location.pathname;
 
-        let showFooter = this.props.location.pathname.indexOf("market") === -1;
+        let showFooter = pathname.indexOf("market") === -1;
+        let isAuthPage = pathname.indexOf("brainkey") !== -1;
+        let myAccounts = AccountStore.getMyAccounts();
+        let myAccountCount = myAccounts.length;
 
         if (this.state.syncFail) {
             content = (
@@ -154,26 +154,16 @@ class Trusty extends React.Component {
         } else if (this.props.location.pathname === "/init-error") {
             content = <div className="grid-frame vertical">{this.props.children}</div>;
         } else {
+            let inside = (myAccountCount == 0 && !isAuthPage) ? (<CreateAccount/>) : this.props.children;
             content = (
                 <div className="grid-frame vertical">
                     <Header/>
                     <MobileMenu isUnlocked={this.state.isUnlocked} id="mobile-menu"/>
                     <div className="grid-block">
                         <div className="grid-block vertical">
-                            {this.props.children}
-                        </div>
-                        <div className="grid-block shrink" style={{overflow: "hidden"}}>
-                            {isMobile ? null :
-                                <Chat
-                                    showChat={showChat}
-                                    disable={true /* disableChat */}
-                                    footerVisible={showFooter}
-                                    dockedChat={dockedChat}
-                                />}
-
+                            {inside}                           
                         </div>
                     </div>
-                    {showFooter ? <Footer synced={this.state.synced}/> : null}
                     <ReactTooltip ref="tooltip" place="top" type={theme === "lightTheme" ? "dark" : "light"} effect="solid"/>
                 </div>
             );
@@ -196,7 +186,6 @@ class Trusty extends React.Component {
                     />
                     <TransactionConfirm/>
                     <WalletUnlockModal/>
-                    <BrowserSupportModal ref="browser_modal"/>
                 </div>
             </div>
         );
@@ -224,7 +213,7 @@ class RootIntl extends React.Component {
 
 RootIntl = connect(RootIntl, {
     listenTo() {
-        return [IntlStore];
+        return [AccountStore,IntlStore];
     },
     getProps() {
         return {
