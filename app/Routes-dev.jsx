@@ -3,6 +3,7 @@ import React from "react";
 import { Router, Route, IndexRoute, browserHistory, hashHistory } from "react-router/es";
 import willTransitionTo from "./routerTransition";
 import App from "./App";
+import Trusty from "./Trusty";
 
 // Components imported here for react hot loader (does not work with async route loading)
 import DashboardContainer from "./components/Dashboard/DashboardContainer";
@@ -55,7 +56,7 @@ class Auth extends React.Component {
 }
 
 const routes = (
-    <Route path="/" component={App} onEnter={willTransitionTo}>
+    <Route path="/" component={Trusty} onEnter={willTransitionTo}>
         <IndexRoute component={DashboardContainer}/>
         <Route path="/auth/:data" component={Auth}/>
         <Route path="/dashboard" component={DashboardContainer}/>
