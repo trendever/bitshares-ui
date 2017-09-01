@@ -4,7 +4,7 @@ import classNames from "classnames";
 import AccountActions from "actions/AccountActions";
 import AccountStore from "stores/AccountStore";
 import AccountNameInput from "./../../Forms/AccountNameInput";
-import PasswordInput from "./../Forms/PasswordInput";
+import PasswordInput from "./../../Forms/PasswordInput";
 import WalletDb from "stores/WalletDb";
 import notify from "actions/NotificationActions";
 import {Link} from "react-router/es";
@@ -20,7 +20,6 @@ import ReactTooltip from "react-tooltip";
 import utils from "common/utils";
 import SettingsActions from "actions/SettingsActions";
 import counterpart from "counterpart";
-import {dispatcher} from "components/Trusty/utils"
 
 class CreateAccount extends React.Component {
     constructor() {
@@ -152,20 +151,10 @@ class CreateAccount extends React.Component {
         if (!this.isValid()) return;
         let account_name = this.accountNameInput.getValue();
         if (WalletDb.getWallet()) {
-            Promise.resolve().then(()=>{
-                this.createAccount(account_name);
-            }).then(()=>{
-                dispatcher.dispatch({type:"show-loader"})
-            })
+            this.createAccount(account_name);
         } else {
             let password = this.refs.password.value();
-            this.createWallet(password).then(() => {
-                Promise.resolve().then(()=>{
-                    this.createAccount(account_name);
-                }).then(()=>{
-                    dispatcher.dispatch({type:"show-loader"})
-                })
-            });
+            this.createWallet(password).then(() => this.createAccount(account_name));
         }
     }
 
@@ -196,15 +185,13 @@ class CreateAccount extends React.Component {
 
         let buttonClass = classNames("submit-button button no-margin", {disabled: (!valid || (registrar_account && !isLTM))});
 
-        let buttonResetClass = classNames("submit-button button no-margin")
-
         return (
             <form
                 style={{maxWidth: "40rem"}}
                 onSubmit={this.onSubmit.bind(this)}
                 noValidate
             >
-                <p style={{fontWeight: "bold"}} className="trusty_title">{firstAccount ? <Translate content="wallet.create_w_a"/>  : <Translate content="wallet.create_a"/>}</p>
+                <p style={{fontWeight: "bold"}}>{firstAccount ? <Translate content="wallet.create_w_a" />  : <Translate content="wallet.create_a" />}</p>
                 <AccountNameInput
                     ref={(ref) => {if (ref) {this.accountNameInput = ref.refs.nameInput;}}}
                     cheapNameOnly={!!firstAccount}
@@ -243,26 +230,16 @@ class CreateAccount extends React.Component {
                 <div className="divider" />
 
                 {/* Submit button */}
-                <div className="trusty_form_buttons">
-                {this.state.loading ?  
-                    <LoadingIndicator type="three-bounce"/> : 
-                    <button className={buttonClass}><Translate content="account.create_account" /></button>
-                }
-                {this.state.loading ?  
-                    <span></span> :
-                    <Link to="/create-wallet-brainkey">
-                        <button className={buttonResetClass}><Translate content="settings.backup_brainkey" /></button>
-                    </Link>
-                }
-                </div>
+                {this.state.loading ?  <LoadingIndicator type="three-bounce"/> : <button className={buttonClass}><Translate content="account.create_account" /></button>}
+
                 {/* Backup restore option */}
-                {/*<div style={{paddingTop: 40}}>
+                <div style={{paddingTop: 40}}>
                     <label>
                         <Link to="/create-wallet-brainkey">
                             <Translate content="settings.backup_brainkey" />
                         </Link>
                     </label>
-                </div>*/}
+                </div>
 
                 {/* Skip to step 3 */}
                 {(!hasWallet || firstAccount ) ? null :<div style={{paddingTop: 20}}>
@@ -389,6 +366,18 @@ class CreateAccount extends React.Component {
         // let firstAccount = my_accounts.length === 0;
         return (
             <div className="grid-block vertical page-layout Account_create">
+                <div className="grid-block shrink small-12 medium-10 medium-offset-2">
+                    <div className="grid-content" style={{paddingTop: 20}}>
+                        <Translate content="wallet.wallet_new" component="h2" />
+                        {/* <h4 style={{paddingTop: 20}}>
+                            {step === 1 ?
+                                <span>{firstAccount ? <Translate content="wallet.create_w_a" />  : <Translate content="wallet.create_a" />}</span> :
+                            step === 2 ? <Translate content="wallet.create_success" /> :
+                            <Translate content="wallet.all_set" />
+                            }
+                        </h4> */}
+                    </div>
+                </div>
                 <div className="grid-block wrap">
                     <div className="grid-content small-12 medium-4 medium-offset-2">
                         {step !== 1 ? <p style={{fontWeight: "bold"}}>
