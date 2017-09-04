@@ -114,13 +114,15 @@ class CreateNewWallet extends Component {
 				}
 
 				return (
-						<div className="grid-content medium-4 small-12 medium-offset-1">
+						<div className="grid-content medium-4 small-12 medium-offset-2">
 
 						<form
 								style={{maxWidth: "40rem"}}
 								onSubmit={this.onSubmit.bind(this)}
 								onChange={this.formChange.bind(this)} noValidate
 						>
+
+								<p style={{fontWeight: "bold"}}><Translate content="settings.backup_brainkey" component="h3" /></p>
 
 								<div
 										className="grid-content"
@@ -204,10 +206,10 @@ class WalletCreate extends Component {
 const CreateWalletFromBrainkey = (props) => {
 		if (!props.nested) {
 				return (
-						<div className="grid-block wrap" style={{paddingTop: 30}}>
+						<div className="grid-block wrap" style={{paddingTop: 15}}>
 								<WalletCreate restoreBrainkey {...props} />
-								<div className="grid-content small-12 medium-4 medium-offset-2">
-										<Translate content="settings.backup_brainkey" component="h3" />
+								<div className="grid-content small-12 medium-4 medium-offset-1">
+										{/*<Translate content="settings.backup_brainkey" component="h3" />*/}
 										<Translate content="settings.restore_brainkey_text" component="p" style={{maxWidth: "40rem", paddingBottom: 10}} />
 								</div>
 						</div>

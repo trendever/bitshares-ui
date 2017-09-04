@@ -191,7 +191,7 @@ class CreateAccount extends React.Component {
                 onSubmit={this.onSubmit.bind(this)}
                 noValidate
             >
-                <p style={{fontWeight: "bold"}}>{firstAccount ? <Translate content="wallet.create_w_a" />  : <Translate content="wallet.create_a" />}</p>
+                <p style={{fontWeight: "bold"}}>{firstAccount ? <Translate content="wallet.create_w_a" component="h3"/>  : <Translate content="wallet.create_a" component="h3"/>}</p>
                 <AccountNameInput
                     ref={(ref) => {if (ref) {this.accountNameInput = ref.refs.nameInput;}}}
                     cheapNameOnly={!!firstAccount}
