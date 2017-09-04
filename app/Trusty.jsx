@@ -157,7 +157,6 @@ class Trusty extends React.Component {
             let inside = (myAccountCount == 0 && !isAuthPage) ? (<CreateAccount/>) : this.props.children;
             content = (
                 <div className="grid-frame vertical">
-                    <Header/>
                     <MobileMenu isUnlocked={this.state.isUnlocked} id="mobile-menu"/>
                     <div className="grid-block">
                         <div className="grid-block vertical">
