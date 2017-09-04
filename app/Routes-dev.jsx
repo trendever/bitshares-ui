@@ -35,7 +35,7 @@ import AssetContainer from "./components/Blockchain/AssetContainer";
 import CreateAccount from "./components/Account/CreateAccount";
 import CreateAccountPassword from "./components/Account/CreateAccountPassword";
 import {ExistingAccount, ExistingAccountOptions} from "./components/Wallet/ExistingAccount";
-import { WalletCreate , CreateWalletFromBrainkey } from "./components/Wallet/WalletCreate";
+import { WalletCreate , CreateWalletFromBrainkey } from "./components/Trusty/Wallet/WalletCreate";
 import ImportKeys from "./components/Wallet/ImportKeys";
 import Invoice from "./components/Transfer/Invoice";
 import {BackupCreate, BackupRestore} from "./components/Wallet/Backup";
