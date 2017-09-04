@@ -1,14 +1,13 @@
 import React, {Component} from "react";
 import {Link} from "react-router";
 import Translate from "react-translate-component";
-import BrainkeyInput from "./BrainkeyInput";
+import BrainkeyInput from "components/Wallet/BrainkeyInput";
 import PasswordConfirm from "components/Wallet/PasswordConfirm";
 import WalletDb from "stores/WalletDb";
 import WalletManagerStore from "stores/WalletManagerStore";
 import WalletActions from "actions/WalletActions";
 import { connect } from "alt-react";
 import cname from "classnames";
-import {dispatcher} from 'components/Trusty/utils'
 
 class CreateNewWallet extends Component {
 
@@ -61,15 +60,8 @@ class CreateNewWallet extends Component {
 						return;
 				}
 
-				WalletActions
-					.setWallet(wallet_public_name, valid_password, this.state.brnkey)
-					.then(data=>{
-						setTimeout(()=>{
-							this.props.router.push("/dashboard")
-							dispatcher.dispatch({type:"show-loader"})
-						},200)
-					});
-				//this.setState({create_submitted: true});
+				WalletActions.setWallet(wallet_public_name, valid_password, this.state.brnkey);
+				this.setState({create_submitted: true});
 		}
 
 		formChange(event) {
@@ -110,7 +102,7 @@ class CreateNewWallet extends Component {
 				let state = this.state;
 				let errors = state.errors;
 				let has_wallet = !!this.props.current_wallet;
-				let divClass = this.props.router.location.pathname=="/wallet/create" ? "": "grid-content medium-4 small-12 medium-offset-2"
+
 				if(this.state.create_submitted &&
 						this.state.wallet_public_name === this.props.current_wallet) {
 						return <div>
@@ -122,15 +114,13 @@ class CreateNewWallet extends Component {
 				}
 
 				return (
-						<div className={divClass}>
+						<div className="grid-content medium-4 small-12 medium-offset-1">
 
 						<form
 								style={{maxWidth: "40rem"}}
 								onSubmit={this.onSubmit.bind(this)}
 								onChange={this.formChange.bind(this)} noValidate
 						>
-
-								<p style={{fontWeight: "bold"}} className="trusty_title" ><Translate content="settings.backup_brainkey" component="span" /></p>
 
 								<div
 										className="grid-content"
@@ -171,16 +161,14 @@ class CreateNewWallet extends Component {
 														});
 												}}/>
 										</div>) : null}
-										<div className="trusty_form_buttons">
-											<button className={cname("button no-margin",{disabled: !(this.state.isValid)})}>
-													<Translate content="wallet.create_wallet" />
-											</button>
 
-											<button className="button secondary" onClick={this.onBack.bind(this)}>
-													<Translate content="wallet.cancel" />
-											</button>
-											
-										</div>
+										<button className={cname("button",{disabled: !(this.state.isValid)})}>
+												<Translate content="wallet.create_wallet" />
+										</button>
+
+										<button className="button secondary" onClick={this.onBack.bind(this)}>
+												<Translate content="wallet.cancel" />
+										</button>
 
 								</div>
 
@@ -216,10 +204,10 @@ class WalletCreate extends Component {
 const CreateWalletFromBrainkey = (props) => {
 		if (!props.nested) {
 				return (
-						<div className="grid-block wrap" style={{paddingTop: 15}}>
+						<div className="grid-block wrap" style={{paddingTop: 30}}>
 								<WalletCreate restoreBrainkey {...props} />
-								<div className="grid-content small-12 medium-4 medium-offset-1">
-										{/*<Translate content="settings.backup_brainkey" component="h3" />*/}
+								<div className="grid-content small-12 medium-4 medium-offset-2">
+										<Translate content="settings.backup_brainkey" component="h3" />
 										<Translate content="settings.restore_brainkey_text" component="p" style={{maxWidth: "40rem", paddingBottom: 10}} />
 								</div>
 						</div>
