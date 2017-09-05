@@ -812,7 +812,7 @@
     "backup_backup": "Restore from a backup file (.bin)",
     "backup_key": "Import a private key",
     "backup_legacy": "Import a BTS 0.9.3c key export file (.json)",
-    "backup_brainkey": "Restore using a wallet brainkey",
+    "backup_brainkey": "Existing account",
     "backupcreate_backup": "Create wallet backup",
     "backupcreate_brainkey": "Create brainkey backup",
     "lookup_text": "Click the button below to check for unclaimed balances from BTS 1.0",
