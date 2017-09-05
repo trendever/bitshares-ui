@@ -2,8 +2,7 @@ import React from "react";
 
 import { Route, IndexRoute } from "react-router/es";
 import willTransitionTo from "./routerTransition";
-import App from "./App";
-
+import Trusty from "./Trusty";
 /*
 * Electron does not support async loading of components via System.import,
 * so we make sure they're bundled already by including them here
@@ -25,7 +24,7 @@ function errorLoading(err) {
 }
 
 const routes = (
-    <Route path="/" component={App} onEnter={willTransitionTo}>
+    <Route path="/" component={Trusty} onEnter={willTransitionTo}>
         <IndexRoute getComponent={(location, cb) => {
             System.import("components/Dashboard/DashboardContainer").then(loadRoute(cb)).catch(errorLoading);
         }}/>
