@@ -102,7 +102,7 @@ class CreateNewWallet extends Component {
 				let state = this.state;
 				let errors = state.errors;
 				let has_wallet = !!this.props.current_wallet;
-
+				let divClass = this.props.router.location.pathname=="/wallet/create" ? "": "grid-content medium-4 small-12 medium-offset-2"
 				if(this.state.create_submitted &&
 						this.state.wallet_public_name === this.props.current_wallet) {
 						return <div>
@@ -114,7 +114,7 @@ class CreateNewWallet extends Component {
 				}
 
 				return (
-						<div className="grid-content medium-4 small-12 medium-offset-2">
+						<div className={divClass}>
 
 						<form
 								style={{maxWidth: "40rem"}}
