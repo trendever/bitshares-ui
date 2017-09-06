@@ -112,7 +112,7 @@ class PasswordInput extends Component {
                             onKeyDown={this.onKeyDown}
                         />
                         {this.props.checkStrength ? (
-                                <progress style={{height: 10, color: red}} className={score === 5 ? "high" : score === 4 ? "medium" : "low"} value={score} max="5" min="0"></progress>
+                                <progress style={{height: 10, color: 'red'}} className={score === 5 ? "high" : score === 4 ? "medium" : "low"} value={score} max="5" min="0"></progress>
                         ) : null}
                     </section>
 
