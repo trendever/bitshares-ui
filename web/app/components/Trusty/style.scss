@@ -1,20 +1,12 @@
-.trusty_form_buttons {
+.t_reg_btns {
 	text-align: center;
 	button {
-		font-size: 1.3rem;
-	  font-weight: bold;
-	  margin-bottom: 10px !important;
+		margin-bottom: 10px !important;
 	}
-
 	@media screen and (max-width: 1256px) {
 		button {
 			width: 60%;
 		}
 		
 	}
-}
-
-.trusty_title {
-	font-size: 1.7rem;
-
 }

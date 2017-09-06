@@ -185,6 +185,8 @@ class CreateAccount extends React.Component {
 
         let buttonClass = classNames("submit-button button no-margin", {disabled: (!valid || (registrar_account && !isLTM))});
 
+        let buttonResetClass = classNames("submit-button button no-margin")
+
         return (
             <form
                 style={{maxWidth: "40rem"}}
@@ -230,7 +232,7 @@ class CreateAccount extends React.Component {
                 <div className="divider" />
 
                 {/* Submit button */}
-                <div>
+                <div className="t_reg_btns">
                 {this.state.loading ?  
                     <LoadingIndicator type="three-bounce"/> : 
                     <button className={buttonClass}><Translate content="account.create_account" /></button>
@@ -238,7 +240,7 @@ class CreateAccount extends React.Component {
                 {this.state.loading ?  
                     <LoadingIndicator type="three-bounce"/> :
                     <Link to="/create-wallet-brainkey">
-                        <button className={buttonClass}><Translate content="settings.backup_brainkey" /></button>
+                        <button className={buttonResetClass}><Translate content="settings.backup_brainkey" /></button>
                     </Link>
                 }
                 </div>
