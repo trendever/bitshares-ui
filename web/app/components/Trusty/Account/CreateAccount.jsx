@@ -4,7 +4,7 @@ import classNames from "classnames";
 import AccountActions from "actions/AccountActions";
 import AccountStore from "stores/AccountStore";
 import AccountNameInput from "./../../Forms/AccountNameInput";
-import PasswordInput from "./../../Forms/PasswordInput";
+import PasswordInput from "./../Forms/PasswordInput";
 import WalletDb from "stores/WalletDb";
 import notify from "actions/NotificationActions";
 import {Link} from "react-router/es";
