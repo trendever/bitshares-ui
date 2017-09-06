@@ -1,0 +1,12 @@
+.t_reg_btns {
+	text-align: center;
+	button {
+		margin-bottom: 10px !important;
+	}
+	@media screen and (max-width: 1256px) {
+		button {
+			width: 60%;
+		}
+		
+	}
+}
