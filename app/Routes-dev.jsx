@@ -6,7 +6,7 @@ import App from "./App";
 import Trusty from "./Trusty";
 
 // Components imported here for react hot loader (does not work with async route loading)
-import DashboardContainer from "./components/Dashboard/DashboardContainer";
+import DashboardContainer from "./components/Trusty/Dashboard/DashboardContainer";
 import Witnesses from "./components/Explorer/Witnesses";
 import CommitteeMembers from "./components/Explorer/CommitteeMembers";
 import FeesContainer from "./components/Blockchain/FeesContainer";
