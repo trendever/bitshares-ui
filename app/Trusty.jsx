@@ -57,7 +57,6 @@ class Trusty extends React.Component {
             NotificationStore.listen(this._onNotificationChange.bind(this));
             SettingsStore.listen(this._onSettingsChange.bind(this));
 
-
             ChainStore.init().then(() => {
                 this.setState({synced: true});
                 Promise.all([
