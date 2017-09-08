@@ -193,7 +193,7 @@ class CreateAccount extends React.Component {
                 onSubmit={this.onSubmit.bind(this)}
                 noValidate
             >
-                <p style={{fontWeight: "bold"}}>{firstAccount ? <Translate content="wallet.create_w_a" component="h3"/>  : <Translate content="wallet.create_a" component="h3"/>}</p>
+                <p style={{fontWeight: "bold"}} className="trusty_title">{firstAccount ? <Translate content="wallet.create_w_a"/>  : <Translate content="wallet.create_a"/>}</p>
                 <AccountNameInput
                     ref={(ref) => {if (ref) {this.accountNameInput = ref.refs.nameInput;}}}
                     cheapNameOnly={!!firstAccount}
@@ -238,7 +238,7 @@ class CreateAccount extends React.Component {
                     <button className={buttonClass}><Translate content="account.create_account" /></button>
                 }
                 {this.state.loading ?  
-                    <LoadingIndicator type="three-bounce"/> :
+                    <span></span> :
                     <Link to="/create-wallet-brainkey">
                         <button className={buttonResetClass}><Translate content="settings.backup_brainkey" /></button>
                     </Link>

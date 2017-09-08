@@ -60,8 +60,14 @@ class CreateNewWallet extends Component {
 						return;
 				}
 
-				WalletActions.setWallet(wallet_public_name, valid_password, this.state.brnkey);
-				this.setState({create_submitted: true});
+				WalletActions
+					.setWallet(wallet_public_name, valid_password, this.state.brnkey)
+					.then(data=>{
+						setTimeout(()=>{
+							this.props.router.push("/dashboard")
+						},200)
+					});
+				//this.setState({create_submitted: true});
 		}
 
 		formChange(event) {
@@ -122,7 +128,7 @@ class CreateNewWallet extends Component {
 								onChange={this.formChange.bind(this)} noValidate
 						>
 
-								<p style={{fontWeight: "bold"}}><Translate content="settings.backup_brainkey" component="h3" /></p>
+								<p style={{fontWeight: "bold"}} className="trusty_title" ><Translate content="settings.backup_brainkey" component="span" /></p>
 
 								<div
 										className="grid-content"
