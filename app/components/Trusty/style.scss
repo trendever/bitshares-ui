@@ -1,8 +1,11 @@
-.t_reg_btns {
+.trusty_form_buttons {
 	text-align: center;
 	button {
-		margin-bottom: 10px !important;
+		font-size: 1.3rem;
+	  font-weight: bold;
+	  margin-bottom: 10px !important;
 	}
+
 	@media screen and (max-width: 1256px) {
 		button {
 			width: 60%;
