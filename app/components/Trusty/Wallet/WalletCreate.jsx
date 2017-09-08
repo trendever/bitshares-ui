@@ -8,6 +8,7 @@ import WalletManagerStore from "stores/WalletManagerStore";
 import WalletActions from "actions/WalletActions";
 import { connect } from "alt-react";
 import cname from "classnames";
+import {dispatcher} from 'components/Trusty/utils'
 
 class CreateNewWallet extends Component {
 
@@ -65,6 +66,7 @@ class CreateNewWallet extends Component {
 					.then(data=>{
 						setTimeout(()=>{
 							this.props.router.push("/dashboard")
+							dispatcher.dispatch({type:"show-loader"})
 						},200)
 					});
 				//this.setState({create_submitted: true});

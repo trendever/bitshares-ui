@@ -20,6 +20,7 @@ import ReactTooltip from "react-tooltip";
 import utils from "common/utils";
 import SettingsActions from "actions/SettingsActions";
 import counterpart from "counterpart";
+import {dispatcher} from "components/Trusty/utils"
 
 class CreateAccount extends React.Component {
     constructor() {
@@ -151,10 +152,20 @@ class CreateAccount extends React.Component {
         if (!this.isValid()) return;
         let account_name = this.accountNameInput.getValue();
         if (WalletDb.getWallet()) {
-            this.createAccount(account_name);
+            Promise.resolve().then(()=>{
+                this.createAccount(account_name);
+            }).then(()=>{
+                dispatcher.dispatch({type:"show-loader"})
+            })
         } else {
             let password = this.refs.password.value();
-            this.createWallet(password).then(() => this.createAccount(account_name));
+            this.createWallet(password).then(() => {
+                Promise.resolve().then(()=>{
+                    this.createAccount(account_name);
+                }).then(()=>{
+                    dispatcher.dispatch({type:"show-loader"})
+                })
+            });
         }
     }
 
