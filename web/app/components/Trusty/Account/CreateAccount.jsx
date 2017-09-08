@@ -232,7 +232,7 @@ class CreateAccount extends React.Component {
                 <div className="divider" />
 
                 {/* Submit button */}
-                <div className="t_reg_btns">
+                <div className="trusty_form_buttons">
                 {this.state.loading ?  
                     <LoadingIndicator type="three-bounce"/> : 
                     <button className={buttonClass}><Translate content="account.create_account" /></button>

@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Link} from "react-router";
 import Translate from "react-translate-component";
-import BrainkeyInput from "components/Wallet/BrainkeyInput";
+import BrainkeyInput from "./BrainkeyInput";
 import PasswordConfirm from "components/Wallet/PasswordConfirm";
 import WalletDb from "stores/WalletDb";
 import WalletManagerStore from "stores/WalletManagerStore";
@@ -163,14 +163,16 @@ class CreateNewWallet extends Component {
 														});
 												}}/>
 										</div>) : null}
+										<div className="trusty_form_buttons">
+											<button className={cname("button no-margin",{disabled: !(this.state.isValid)})}>
+													<Translate content="wallet.create_wallet" />
+											</button>
 
-										<button className={cname("button",{disabled: !(this.state.isValid)})}>
-												<Translate content="wallet.create_wallet" />
-										</button>
-
-										<button className="button secondary" onClick={this.onBack.bind(this)}>
-												<Translate content="wallet.cancel" />
-										</button>
+											<button className="button secondary" onClick={this.onBack.bind(this)}>
+													<Translate content="wallet.cancel" />
+											</button>
+											
+										</div>
 
 								</div>
 
