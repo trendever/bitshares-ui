@@ -21,7 +21,9 @@ import TransactionConfirm from "./components/Blockchain/TransactionConfirm";
 import WalletUnlockModal from "./components/Wallet/WalletUnlockModal";
 import CreateAccount from "./components/Trusty/Account/CreateAccount";
 import Footer from "./components/Layout/Footer";
-import "./components/Trusty/style.scss";
+import "components/Trusty/style.scss";
+
+import {dispatcher} from 'components/Trusty/utils'
 
 class Trusty extends React.Component {
 
@@ -34,6 +36,7 @@ class Trusty extends React.Component {
 
         let syncFail = ChainStore.subError && (ChainStore.subError.message === "ChainStore sync error, please check your system clock") ? true : false;
         this.state = {
+            showLoader: false,
             loading: true,
             synced: ChainStore.subscribed,
             syncFail,
@@ -53,6 +56,7 @@ class Trusty extends React.Component {
     }
 
     componentDidMount() {
+        
         try {
             NotificationStore.listen(this._onNotificationChange.bind(this));
             SettingsStore.listen(this._onSettingsChange.bind(this));
@@ -81,6 +85,12 @@ class Trusty extends React.Component {
         this.props.router.listen(this._rebuildTooltips);
 
         this._rebuildTooltips();
+
+        dispatcher.register( dispatch => {
+          if ( dispatch.type === 'show-loader' ) {
+            this.setState({ showLoader: true })
+          }
+        })
     }
 
     _rebuildTooltips() {
@@ -134,7 +144,12 @@ class Trusty extends React.Component {
     //     console.log("add notification:", this.refs, params);
     //     this.refs.notificationSystem.addNotification(params);
     // }
-
+    componentWillReceiveProps(nextProps, nextState){
+        if(this.state.showLoader && AccountStore.getMyAccounts().length > 0){
+            console.log(this.state)
+            this.setState({showLoader: false})
+        }
+    }
     render() {
         let {disableChat, isMobile, showChat, dockedChat, theme} = this.state;
         let content = null;
@@ -144,12 +159,13 @@ class Trusty extends React.Component {
         let isAuthPage = pathname.indexOf("brainkey") !== -1;
         let myAccounts = AccountStore.getMyAccounts();
         let myAccountCount = myAccounts.length;
+        let isRestoreProcess = pathname.indexOf("dashboard") !== -1 && myAccountCount == 0 
 
         if (this.state.syncFail) {
             content = (
                 <SyncError />
             );
-        } else if (this.state.loading) {
+        } else if (this.state.loading || this.state.showLoader) {
             content = <div className="grid-frame vertical"><LoadingIndicator /></div>;
         } else if (this.props.location.pathname === "/init-error") {
             content = <div className="grid-frame vertical">{this.props.children}</div>;
