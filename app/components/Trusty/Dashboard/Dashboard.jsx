@@ -16,15 +16,12 @@ class Dashboard extends React.Component {
         super();
         let marketsByChain = {
             "4018d784":[
-                ["USD", "OPEN.BTC"],
-                ["USD", "OPEN.LTC"],
-                ["USD", "OPEN.ETH"],
-                ["USD", "OPEN.DASH"],
-                ["USD", "BTS"],
-            ],
-            "39f5e2ed": [
-                ["TEST", "PEG.FAKEUSD"],
-                ["TEST", "BTWTY"]
+                ["BTS", "OPEN.BTC"],
+                ["BTS", "OPEN.ETH"],
+                ["BTS", "OPEN.LTC"],
+                ["BTS", "OPEN.DASH"],
+                ["BTS", "RUBLE"],
+                ["BTS", "GOLD"],
             ]
         };
         let chainID = Apis.instance().chain_id;
