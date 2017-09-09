@@ -6,6 +6,7 @@ import App from "./App";
 import Trusty from "./Trusty";
 
 // Components imported here for react hot loader (does not work with async route loading)
+import DashboardContainerOld from "./components/Dashboard/DashboardContainer";
 import DashboardContainer from "./components/Trusty/Dashboard/DashboardContainer";
 import Witnesses from "./components/Explorer/Witnesses";
 import CommitteeMembers from "./components/Explorer/CommitteeMembers";
@@ -58,6 +59,12 @@ class Auth extends React.Component {
 const routes = (
     <Route path="/" component={Trusty} onEnter={willTransitionTo}>
         <IndexRoute component={DashboardContainer}/>
+
+
+        <Route path="/oldapp" component={App}>
+            <IndexRoute component={DashboardContainerOld}/>
+        </Route>
+        
         <Route path="/auth/:data" component={Auth}/>
         <Route path="/dashboard" component={DashboardContainer}/>
         <Route path="explorer" component={Explorer}/>
