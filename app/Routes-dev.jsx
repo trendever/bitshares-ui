@@ -22,7 +22,7 @@ import {AccountAssetCreate} from "./components/Account/AccountAssetCreate";
 import AccountAssetUpdate from "./components/Account/AccountAssetUpdate";
 import AccountMembership from "./components/Account/AccountMembership";
 import AccountVesting from "./components/Account/AccountVesting";
-import AccountDepositWithdraw from "./components/Account/AccountDepositWithdraw";
+import AccountDepositWithdraw from "./components/Trusty/Account/AccountDepositWithdraw";
 import AccountPermissions from "./components/Account/AccountPermissions";
 import AccountWhitelist from "./components/Account/AccountWhitelist";
 import AccountVoting from "./components/Account/AccountVoting";
