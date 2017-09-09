@@ -110,7 +110,6 @@ class CreateNewWallet extends Component {
 				let state = this.state;
 				let errors = state.errors;
 				let has_wallet = !!this.props.current_wallet;
-				let divClass = this.props.router.location.pathname=="/wallet/create" ? "": "grid-content medium-4 small-12 medium-offset-2"
 				if(this.state.create_submitted &&
 						this.state.wallet_public_name === this.props.current_wallet) {
 						return <div>
@@ -122,10 +121,10 @@ class CreateNewWallet extends Component {
 				}
 
 				return (
-						<div className={divClass}>
+						<div className="trusty_center">
 
 						<form
-								style={{maxWidth: "40rem"}}
+								style={{maxWidth: "25rem"}}
 								onSubmit={this.onSubmit.bind(this)}
 								onChange={this.formChange.bind(this)} noValidate
 						>
@@ -216,12 +215,8 @@ class WalletCreate extends Component {
 const CreateWalletFromBrainkey = (props) => {
 		if (!props.nested) {
 				return (
-						<div className="grid-block wrap" style={{paddingTop: 15}}>
+						<div style={{paddingTop: 15}}>
 								<WalletCreate restoreBrainkey {...props} />
-								<div className="grid-content small-12 medium-4 medium-offset-1">
-										{/*<Translate content="settings.backup_brainkey" component="h3" />*/}
-										<Translate content="settings.restore_brainkey_text" component="p" style={{maxWidth: "40rem", paddingBottom: 10}} />
-								</div>
 						</div>
 				);
 		}

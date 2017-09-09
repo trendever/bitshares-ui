@@ -200,7 +200,7 @@ class CreateAccount extends React.Component {
 
         return (
             <form
-                style={{maxWidth: "40rem"}}
+                style={{maxWidth: "25rem"}}
                 onSubmit={this.onSubmit.bind(this)}
                 noValidate
             >
@@ -240,7 +240,7 @@ class CreateAccount extends React.Component {
                     </div>)
                 }
 
-                <div className="divider" />
+                {/*<div className="divider" />*/}
 
                 {/* Submit button */}
                 <div className="trusty_form_buttons">
@@ -389,23 +389,23 @@ class CreateAccount extends React.Component {
         // let firstAccount = my_accounts.length === 0;
         return (
             <div className="grid-block vertical page-layout Account_create">
-                <div className="grid-block wrap">
-                    <div className="grid-content small-12 medium-4 medium-offset-2">
-                        {step !== 1 ? <p style={{fontWeight: "bold"}}>
-                            <Translate content={"wallet.step_" + step} />
-                        </p> : null}
 
-                        {step === 1 ? this._renderAccountCreateForm() : step === 2 ? this._renderBackup() :
-                            this._renderGetStarted()
-                        }
-                    </div>
+                <div className="trusty_center" style={{paddingTop:"15px"}}>
+                    {step !== 1 ? <p style={{fontWeight: "bold"}}>
+                        <Translate content={"wallet.step_" + step} />
+                    </p> : null}
 
-                    <div className="grid-content small-12 medium-4 medium-offset-1">
-                        {step === 1 ? this._renderAccountCreateText() : step === 2 ? this._renderBackupText() :
-                            this._renderGetStartedText()
-                        }
-                    </div>
+                    {step === 1 ? this._renderAccountCreateForm() : step === 2 ? this._renderBackup() :
+                        this._renderGetStarted()
+                    }
                 </div>
+
+                {/*<div className="grid-content small-12 medium-4 medium-offset-1">
+                    {step === 1 ? this._renderAccountCreateText() : step === 2 ? this._renderBackupText() :
+                        this._renderGetStartedText()
+                    }
+                </div>*/}
+        
             </div>
         );
     }
