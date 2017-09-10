@@ -9,7 +9,7 @@ import TranswiserDepositWithdraw from "components/DepositWithdraw/transwiser/Tra
 import BlockTradesGateway from "components/DepositWithdraw/BlockTradesGateway";
 import OpenLedgerFiatDepositWithdrawal from "components/DepositWithdraw/openledger/OpenLedgerFiatDepositWithdrawal";
 import OpenLedgerFiatTransactionHistory from "components/DepositWithdraw/openledger/OpenLedgerFiatTransactionHistory";
-import BlockTradesBridgeDepositRequest from "components/DepositWithdraw/blocktrades/BlockTradesBridgeDepositRequest";
+import BlockTradesBridgeDepositRequest from "components/Trusty/DepositWithdraw/blocktrades/BlockTradesBridgeDepositRequest";
 import HelpContent from "components/Utility/HelpContent";
 import AccountStore from "stores/AccountStore";
 import SettingsStore from "stores/SettingsStore";
