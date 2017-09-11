@@ -59,21 +59,9 @@ class Auth extends React.Component {
 const routes = (
     <Route path="/" component={Trusty} onEnter={willTransitionTo}>
         <IndexRoute component={DashboardContainer}/>
-
-
-        <Route path="/oldapp" component={App}>
-            <IndexRoute component={DashboardContainerOld}/>
-        </Route>
         
         <Route path="/auth/:data" component={Auth}/>
         <Route path="/dashboard" component={DashboardContainer}/>
-        <Route path="explorer" component={Explorer}/>
-        <Route path="/explorer/fees" component={FeesContainer} />
-        <Route path="/explorer/blocks" component={BlocksContainer} />
-        <Route path="/explorer/assets" component={AssetsContainer} />
-        <Route path="/explorer/accounts" component={AccountsContainer} />
-        <Route path="/explorer/witnesses" component={Witnesses} />
-        <Route path="/explorer/committee-members" component={CommitteeMembers} />
 
         <Route path="wallet" component={WalletManager} >
             {/* wallet management console */}

@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router/es";
 import Immutable from "immutable";
 import { RecentTransactions } from "../../Account/RecentTransactions";
 import Translate from "react-translate-component";
@@ -6,13 +7,20 @@ import MarketCard from "./MarketCard";
 import utils from "common/utils";
 import { Apis } from "bitsharesjs-ws";
 var logo = require("assets/logo-ico-blue.png");
+import AccountStore from "stores/AccountStore";
 import LoadingIndicator from "../../LoadingIndicator";
+import { connect } from "alt-react";
 import SettingsActions from "actions/SettingsActions";
 import WalletUnlockActions from "actions/WalletUnlockActions";
+import classNames from "classnames";
 
 class Dashboard extends React.Component {
+    static contextTypes = {
+        location: React.PropTypes.object.isRequired,
+        router: React.PropTypes.object.isRequired
+    };
 
-    constructor() {
+    constructor(props, context) {
         super();
         let marketsByChain = {
             "4018d784":[
@@ -33,7 +41,8 @@ class Dashboard extends React.Component {
             featuredMarkets: marketsByChain[chainID] || marketsByChain["4018d784"],
             newAssets: [
 
-            ]
+            ],
+            active: context.location.pathname
         };
 
         this._setDimensions = this._setDimensions.bind(this);
@@ -52,7 +61,7 @@ class Dashboard extends React.Component {
             !utils.are_equal_shallow(nextProps.lowVolumeMarkets, this.props.lowVolumeMarkets) ||
             !utils.are_equal_shallow(nextState.newAssets, this.state.newAssets) ||
             nextProps.linkedAccounts !== this.props.linkedAccounts ||
-            // nextProps.marketStats !== this.props.marketStats ||
+            nextProps.currentAccount !== this.props.currentAccount ||
             nextProps.ignoredAccounts !== this.props.ignoredAccounts ||
             nextProps.passwordAccount !== this.props.passwordAccount ||
             nextState.width !== this.state.width ||
@@ -79,8 +88,16 @@ class Dashboard extends React.Component {
         });
     }
 
+    _accountClickHandler(account_name, e) {
+        e.preventDefault();
+        let currentPath = this.context.location.pathname;
+        console.log("CURRENT",currentPath)
+        this.context.router.push(currentPath + "account/" + account_name);
+
+    }
+
     render() {
-        let { linkedAccounts, myIgnoredAccounts, accountsReady, passwordAccount } = this.props;
+        let { linkedAccounts, myIgnoredAccounts, accountsReady, passwordAccount, currentAccount} = this.props;
         let {width, showIgnored, featuredMarkets, newAssets} = this.state;
 
         if (passwordAccount && !linkedAccounts.has(passwordAccount)) {
@@ -95,6 +112,10 @@ class Dashboard extends React.Component {
         if (!accountsReady) {
             return <LoadingIndicator />;
         }
+
+        console.log("LINKED",linkedAccounts);
+        console.log("ACCOUNT COUNT",accountCount);
+        
 
         let validMarkets = 0;
 
@@ -125,15 +146,41 @@ class Dashboard extends React.Component {
             );
         }).filter(a => !!a);
 
+        let buttonClass = classNames("submit-button button no-margin");
+
+        let tradingAccounts = AccountStore.getMyAccounts();
+        let accountsDropDown = null, account_display_name;
+        if (currentAccount) {
+            account_display_name = currentAccount.length > 20 ? `${currentAccount.slice(0, 20)}..` : currentAccount;
+            if (tradingAccounts.indexOf(currentAccount) < 0) {
+                tradingAccounts.push(currentAccount);
+            }
+            
+        }
+
+        let acc_button = tradingAccounts.length === 1 ?
+        (<a onClick={this._accountClickHandler.bind(this, account_display_name)} style={{cursor: "default", padding: "1rem", border: "none"}}>            
+                <div className="table-cell" style={{paddingLeft: 5}}><div className="inline-block"><span>{account_display_name}</span></div></div>
+            </a>) : false;
 
         return (
             <div ref="wrapper" className="grid-block page-layout vertical">
                 <div ref="container" className="grid-container" style={{padding: "25px 10px 0 10px"}}>
                     <div className="block-content-header" style={{marginBottom: 15}}>
-                        Portfolio
+                        Your account - 
+                        {acc_button}
                     </div>
                     <div className="grid-block small-up-1 medium-up-3 large-up-4 no-overflow fm-outer-container">
                         {markets}
+                    </div>
+                </div>
+                <div ref="container2" className="grid-container" style={{padding: "25px 10px 0 10px"}}>
+                    <div className="grid-block small-up-1 medium-up-3 large-up-4 no-overflow">
+                        <Link to={"/deposit-withdraw/"} activeClassName="active">
+                            <button className={buttonClass}>
+                                <Translate content="account.deposit_withdraw"/>
+                            </button>
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -141,4 +188,15 @@ class Dashboard extends React.Component {
     }
 }
 
-export default Dashboard;
+export default connect(Dashboard, {
+    listenTo() {
+        return [AccountStore];
+    },
+    getProps() {
+        const chainID = Apis.instance().chain_id;
+        return {
+            linkedAccounts: AccountStore.getState().linkedAccounts,
+            currentAccount: AccountStore.getState().currentAccount || AccountStore.getState().passwordAccount,
+        };
+    }
+});

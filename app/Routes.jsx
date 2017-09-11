@@ -2,7 +2,6 @@ import React from "react";
 
 import { Route, IndexRoute } from "react-router/es";
 import willTransitionTo from "./routerTransition";
-import App from "./App";
 import Trusty from "./Trusty";
 /*
 * Electron does not support async loading of components via System.import,
@@ -75,7 +74,7 @@ const routes = (
                 System.import("components/Wallet/Brainkey").then(loadRoute(cb, "ExistingAccountOptions")).catch(errorLoading);
             }}/>
             <Route path="create" getComponent={(location, cb) => {
-                System.import("components/Wallet/WalletCreate").then(loadRoute(cb, "WalletCreate")).catch(errorLoading);
+                System.import("components/Wallet/Trusty/WalletCreate").then(loadRoute(cb, "WalletCreate")).catch(errorLoading);
             }}/>
             <Route path="delete" getComponent={(location, cb) => {
                 System.import("components/Wallet/WalletManager").then(loadRoute(cb, "WalletDelete")).catch(errorLoading);
@@ -95,11 +94,11 @@ const routes = (
         </Route>
 
         <Route path="create-wallet" getComponent={(location, cb) => {
-            System.import("components/Wallet/WalletCreate").then(loadRoute(cb, "WalletCreate")).catch(errorLoading);
+            System.import("components/Trusty/Wallet/WalletCreate").then(loadRoute(cb, "WalletCreate")).catch(errorLoading);
         }}/>
 
         <Route path="create-wallet-brainkey" getComponent={(location, cb) => {
-            System.import("components/Wallet/WalletCreate").then(loadRoute(cb, "CreateWalletFromBrainkey")).catch(errorLoading);
+            System.import("components/Trusty/Wallet/WalletCreate").then(loadRoute(cb, "CreateWalletFromBrainkey")).catch(errorLoading);
         }}/>
 
         <Route path="transfer" getComponent={(location, cb) => {
@@ -186,7 +185,7 @@ const routes = (
                 System.import("components/Account/AccountVoting").then(loadRoute(cb)).catch(errorLoading);
             }}/>
             <Route path="deposit-withdraw" getComponent={(location, cb) => {
-                System.import("components/Account/AccountDepositWithdraw").then(loadRoute(cb)).catch(errorLoading);
+                System.import("components/Trusty/Account/AccountDepositWithdraw").then(loadRoute(cb)).catch(errorLoading);
             }}/>
             <Route path="orders" getComponent={(location, cb) => {
                 System.import("components/Account/AccountOrders").then(loadRoute(cb)).catch(errorLoading);
@@ -196,7 +195,7 @@ const routes = (
             }}/>
         </Route>
         <Route path="deposit-withdraw" getComponent={(location, cb) => {
-            System.import("components/Account/AccountDepositWithdraw").then(loadRoute(cb)).catch(errorLoading);
+            System.import("components/Trusty/Account/AccountDepositWithdraw").then(loadRoute(cb)).catch(errorLoading);
         }}/>
         <Route path="create-worker" getComponent={(location, cb) => {
             System.import("components/Account/CreateWorker").then(loadRoute(cb)).catch(errorLoading);
