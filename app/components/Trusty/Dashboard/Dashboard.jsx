@@ -15,12 +15,8 @@ import WalletUnlockActions from "actions/WalletUnlockActions";
 import classNames from "classnames";
 
 class Dashboard extends React.Component {
-    static contextTypes = {
-        location: React.PropTypes.object.isRequired,
-        router: React.PropTypes.object.isRequired
-    };
 
-    constructor(props, context) {
+    constructor() {
         super();
         let marketsByChain = {
             "4018d784":[
@@ -42,7 +38,6 @@ class Dashboard extends React.Component {
             newAssets: [
 
             ],
-            active: context.location.pathname
         };
 
         this._setDimensions = this._setDimensions.bind(this);
@@ -86,14 +81,6 @@ class Dashboard extends React.Component {
         this.setState({
             showIgnored: !this.state.showIgnored
         });
-    }
-
-    _accountClickHandler(account_name, e) {
-        e.preventDefault();
-        let currentPath = this.context.location.pathname;
-        console.log("CURRENT",currentPath)
-        this.context.router.push(currentPath + "account/" + account_name);
-
     }
 
     render() {
@@ -159,16 +146,13 @@ class Dashboard extends React.Component {
         }
 
         let acc_button = tradingAccounts.length === 1 ?
-        (<a onClick={this._accountClickHandler.bind(this, account_display_name)} style={{cursor: "default", padding: "1rem", border: "none"}}>            
-                <div className="table-cell" style={{paddingLeft: 5}}><div className="inline-block"><span>{account_display_name}</span></div></div>
-            </a>) : false;
+        (<Link to={`/account/${account_display_name}`} activeClassName="active">{account_display_name}</Link>) : false;
 
         return (
             <div ref="wrapper" className="grid-block page-layout vertical">
                 <div ref="container" className="grid-container" style={{padding: "25px 10px 0 10px"}}>
                     <div className="block-content-header" style={{marginBottom: 15}}>
-                        Your account - 
-                        {acc_button}
+                        Your account - {acc_button}
                     </div>
                     <div className="grid-block small-up-1 medium-up-3 large-up-4 no-overflow fm-outer-container">
                         {markets}
