@@ -50,6 +50,8 @@ import InitError from "./components/InitError";
 import LoginSelector from "./components/LoginSelector";
 import CreateWorker from "./components/Account/CreateWorker";
 
+import TrustyLanding from "components/Trusty/Landing/Landing"
+
 const history = __HASH_HISTORY__ ? hashHistory : browserHistory;
 
 class Auth extends React.Component {
@@ -62,7 +64,8 @@ const routes = (
         
         <Route path="/auth/:data" component={Auth}/>
         <Route path="/dashboard" component={DashboardContainer}/>
-
+        <Route path="/landing" component={TrustyLanding}/>
+        
         <Route path="wallet" component={WalletManager} >
             {/* wallet management console */}
             <IndexRoute component={WalletOptions} />
