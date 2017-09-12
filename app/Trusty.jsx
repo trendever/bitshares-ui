@@ -21,7 +21,7 @@ import TransactionConfirm from "./components/Blockchain/TransactionConfirm";
 import WalletUnlockModal from "./components/Wallet/WalletUnlockModal";
 import CreateAccount from "./components/Trusty/Account/CreateAccount";
 import Footer from "./components/Layout/Footer";
-import "components/Trusty/style.scss";
+
 
 import {dispatcher} from 'components/Trusty/utils'
 

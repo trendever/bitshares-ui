@@ -1,6 +1,7 @@
 import React from "react";
 import {PropTypes, Component} from "react";
 import cname from "classnames";
+import "./style.scss"
 
 
 let slides = [
@@ -10,7 +11,7 @@ let slides = [
         image: require('./images/landing_slide_1.png'),
         title: "1-click To Buy Crypto Portfolio",
         text: `
-        Sign-up, click deposit and you already own top-5 liquid and steady growing cryptocurrencies. It’s never been easier
+        Sign-up, click deposit and<br class="desk"> you already own top-5 liquid<br class="desk"> and steady growing cryptocurrencies.<br class="desk"> It’s never been easier
         `
     },
     {
@@ -18,7 +19,7 @@ let slides = [
         image: require('./images/landing_slide_2.png'),
         title: "Deposit Any Currency",
         text: `
-        Invest USD, RUB, EUR, CNY or any cryptocurrency with minimal commission, at best exchange rate
+        Invest USD, RUB, EUR, CNY<br class="desk"> or any cryptocurrency with<br class="desk"> minimal commission, at best<br class="desk"> exchange rate
         `
     },
     {
@@ -26,7 +27,7 @@ let slides = [
         image: require('./images/landing_slide_3.png'),
         title: "Uncrackable Like Bitcoin",
         text: `
-        Your funds are held decentralized and secured by immutable BitShares blockchain. Only you hold the private key
+        Your funds are held decentralized<br class="desk"> and secured by immutable<br class="desk"> BitShares blockchain. Only you<br class="desk"> hold the private key
         `
     },
     {
@@ -34,7 +35,7 @@ let slides = [
         image: require('./images/landing_slide_4.png'),
         title: "Fast Withdrawal Guaranteed",
         text: `
-        Anytime and anywhere you can immediately withdraw funds to any account, wallet or bank card
+        Anytime and anywhere you<br class="desk"> can immediately withdraw<br class="desk"> funds to any account, wallet<br class="desk"> or bank card
         `
     },
     {
@@ -42,7 +43,7 @@ let slides = [
         image: require('./images/landing_slide_5.png'),
         title: "1-Click To Fix Income",
         text: `
-        Fix income to wait out hyper volatility on the market. Just one click to move funds from crypto to traditional assets, e.g. Gold, USD, EUR or CNY
+        Fix income to wait out hyper volatility<br class="desk"> on the market. Just one click to move<br class="desk"> funds from crypto to traditional assets,<br class="desk"> e.g. Gold, USD, EUR or CNY
         `
     }
 
@@ -62,21 +63,37 @@ class Landing extends Component {
 
         const list = slides.map((slide, index)=>
             <div className="land_slide" key={slide.id}>
-                <h1>{slide.title}</h1>
-                <div className="_body">{slide.text}</div>
-                <img className="_image" src={slide.image}/>
-                {index==0||index==4?button: null}
+                <div className="image_area">
+                    <img className="_image" src={slide.image}/>
+                </div>
+                <div className="text_area">
+                    <h1>{slide.title}</h1>
+                    <div className="_body" dangerouslySetInnerHTML={{__html:slide.text}}/>
+                </div>
             </div>
         );
-
+        const top = (
+            <div className="logo_starter">
+                <div className="top_buttons">
+                <span>Sign-Up</span>
+                    <span>Log In</span>
+                </div>
+                <div className="_logo_text" dangerouslySetInnerHTML={{__html:require('./images/trusty_fund_logo.svg')}}/>
+                <div className="_logo" dangerouslySetInnerHTML={{__html:require('./images/owl_logo_small.svg')}}/>
+                <p>Single-click to invest in crypto economy</p>
+                {button}
+            </div>
+        )
         return (            
             <div id="landing">
+                {top}
                 <div className="land_slides">
                     {list}
                 </div>
                 <div className="last_text">
                     <p>First time in history every person on earth can invest in a globally disruptive, yet infant, technology</p>
                     <p>Depositing into Trusty.Fund now is like investing in index of Internet companies of 90s, when 20 million people used Internet</p>
+                    {button}
                 </div>
             </div>
         );
