@@ -74,7 +74,7 @@ const routes = (
                 System.import("components/Wallet/Brainkey").then(loadRoute(cb, "ExistingAccountOptions")).catch(errorLoading);
             }}/>
             <Route path="create" getComponent={(location, cb) => {
-                System.import("components/Wallet/Trusty/WalletCreate").then(loadRoute(cb, "WalletCreate")).catch(errorLoading);
+                System.import("components/Trusty/Wallet/WalletCreate").then(loadRoute(cb, "WalletCreate")).catch(errorLoading);
             }}/>
             <Route path="delete" getComponent={(location, cb) => {
                 System.import("components/Wallet/WalletManager").then(loadRoute(cb, "WalletDelete")).catch(errorLoading);
