@@ -1,6 +1,7 @@
 import React from "react";
 import {PropTypes, Component} from "react";
 import cname from "classnames";
+import {Link} from 'react-router';
 import "./style.scss"
 
 
@@ -75,8 +76,8 @@ class Landing extends Component {
         const top = (
             <div className="logo_starter">
                 <div className="top_buttons">
-                <span>Sign-Up</span>
-                    <span>Log In</span>
+                    <Link to="/dashboard"><span>Sign-Up</span></Link>
+                    <Link to="/create-wallet-brainkey"><span>Log In</span></Link>
                 </div>
                 <div className="_logo_text" dangerouslySetInnerHTML={{__html:require('./images/trusty_fund_logo.svg')}}/>
                 <div className="_logo" dangerouslySetInnerHTML={{__html:require('./images/owl_logo_small.svg')}}/>

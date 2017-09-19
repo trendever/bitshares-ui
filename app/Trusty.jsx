@@ -169,6 +169,8 @@ class Trusty extends React.Component {
             content = <div className="grid-frame vertical"><LoadingIndicator /></div>;
         } else if (this.props.location.pathname === "/init-error") {
             content = <div className="grid-frame vertical">{this.props.children}</div>;
+        } else if (this.props.location.pathname === '/landing') {
+            content = this.props.children
         } else {
             let inside = (myAccountCount == 0 && !isAuthPage) ? (<CreateAccount/>) : this.props.children;
             content = (
