@@ -86,6 +86,7 @@ export default class BrainkeyInput extends Component {
             <span className="">
                 <div>
                     <textarea
+                        placeholder="12 security words; can be found in your account settings"
                         tabIndex={this.props.tabIndex || 1}
                         onChange={this.formChange.bind(this)}
                         value={this.state.brnkey} id="brnkey"

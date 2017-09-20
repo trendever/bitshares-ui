@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {Link} from "react-router";
 import Translate from "react-translate-component";
 import BrainkeyInput from "./BrainkeyInput";
-import PasswordConfirm from "components/Wallet/PasswordConfirm";
+import PasswordConfirm from "./PasswordConfirm";
 import WalletDb from "stores/WalletDb";
 import WalletManagerStore from "stores/WalletManagerStore";
 import WalletActions from "actions/WalletActions";
@@ -107,6 +107,7 @@ class CreateNewWallet extends Component {
 		// }
 
 		render() {
+			let underButtonsText = "Please don't login, unless sure you are using a secure device"
 				let state = this.state;
 				let errors = state.errors;
 				let has_wallet = !!this.props.current_wallet;
@@ -129,7 +130,8 @@ class CreateNewWallet extends Component {
 								onChange={this.formChange.bind(this)} noValidate
 						>
 
-								<p style={{fontWeight: "bold"}} className="trusty_title" ><Translate content="settings.backup_brainkey" component="span" /></p>
+								<p style={{fontWeight: "bold"}} className="trusty_title" ><span>Existing account</span></p>
+								<span>This is the first login on this device, so you also need to enter account brainkey password</span>
 
 								<div
 										className="grid-content"
@@ -172,14 +174,15 @@ class CreateNewWallet extends Component {
 										</div>) : null}
 										<div className="trusty_form_buttons">
 											<button className={cname("button no-margin",{disabled: !(this.state.isValid)})}>
-													<Translate content="wallet.create_wallet" />
+													<Translate content="settings.backup_brainkey" />
 											</button>
 
 											<button className="button secondary" onClick={this.onBack.bind(this)}>
-													<Translate content="wallet.cancel" />
+													<Translate content="account.create_account" />
 											</button>
 											
 										</div>
+										<span>{underButtonsText}</span>
 
 								</div>
 
