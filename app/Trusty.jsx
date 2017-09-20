@@ -165,7 +165,7 @@ class Trusty extends React.Component {
             content = (
                 <SyncError />
             );
-        } else if (this.state.loading || this.state.showLoader) {
+        } else if (this.state.loading) {
             content = <div className="grid-frame vertical"><LoadingIndicator /></div>;
         } else if (this.props.location.pathname === "/init-error") {
             content = <div className="grid-frame vertical">{this.props.children}</div>;
@@ -175,6 +175,7 @@ class Trusty extends React.Component {
             let inside = (myAccountCount == 0 && !isAuthPage) ? (<CreateAccount/>) : this.props.children;
             content = (
                 <div className="grid-frame vertical">
+                    <Header />
                     <MobileMenu isUnlocked={this.state.isUnlocked} id="mobile-menu"/>
                     <div className="grid-block">
                         <div className="grid-block vertical">
