@@ -68,6 +68,8 @@ class CreateNewWallet extends Component {
 							this.props.router.push("/dashboard")
 							dispatcher.dispatch({type:"show-loader"})
 						},200)
+						localStorage.setItem("_pswd_unlock", valid_password)
+						window.location = '/'
 					});
 				//this.setState({create_submitted: true});
 		}

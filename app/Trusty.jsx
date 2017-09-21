@@ -18,7 +18,7 @@ import Chat from "./components/Chat/ChatWrapper";
 import ReactTooltip from "react-tooltip";
 import NotificationSystem from "react-notification-system";
 import TransactionConfirm from "./components/Blockchain/TransactionConfirm";
-import WalletUnlockModal from "./components/Wallet/WalletUnlockModal";
+import WalletUnlockModal from "./components/Trusty/Wallet/WalletUnlockModal";
 import CreateAccount from "./components/Trusty/Account/CreateAccount";
 import Footer from "./components/Layout/Footer";
 
@@ -36,7 +36,6 @@ class Trusty extends React.Component {
 
         let syncFail = ChainStore.subError && (ChainStore.subError.message === "ChainStore sync error, please check your system clock") ? true : false;
         this.state = {
-            showLoader: false,
             loading: true,
             synced: ChainStore.subscribed,
             syncFail,
@@ -72,6 +71,9 @@ class Trusty extends React.Component {
                     console.log("[Trusty.jsx] ----- ERROR ----->", error);
                     this.setState({loading: false});
                 });
+            }).then(()=>{
+                let i = localStorage.getItem("_pswd_unlock")
+                i && dispatcher.dispatch({type:"background-unlock", data: i})
             }).catch(error => {
                 console.log("[Trusty.jsx] ----- ChainStore.init error ----->", error);
                 let syncFail = ChainStore.subError && (ChainStore.subError.message === "ChainStore sync error, please check your system clock") ? true : false;
@@ -88,7 +90,7 @@ class Trusty extends React.Component {
 
         dispatcher.register( dispatch => {
           if ( dispatch.type === 'show-loader' ) {
-            this.setState({ showLoader: true })
+            this.setState({ loading: true })
           }
         })
     }
@@ -145,9 +147,9 @@ class Trusty extends React.Component {
     //     this.refs.notificationSystem.addNotification(params);
     // }
     componentWillReceiveProps(nextProps, nextState){
-        if(this.state.showLoader && AccountStore.getMyAccounts().length > 0){
+        if(this.state.loading && AccountStore.getMyAccounts().length > 0){
             console.log(this.state)
-            this.setState({showLoader: false})
+            this.setState({loading: false})
         }
     }
     render() {
